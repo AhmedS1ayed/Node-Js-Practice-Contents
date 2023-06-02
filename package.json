@@ -1,0 +1,11 @@
+{
+  "name": "first-try",
+  "version": "1.0.0",
+  "description": "trying node js",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Ahmed",
+  "license": "ISC"
+}
