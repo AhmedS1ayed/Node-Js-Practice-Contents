@@ -7,7 +7,6 @@ const express = require("express");
 const morgan = require("morgan");
 // secure header
 const helmet = require("helmet");
-// validation
 const app = express();
 
 app.use(express.json());
@@ -28,6 +27,6 @@ if (app.get("env") == "development") {
 dbDebugger("connected to database ...");
 
 const port = process.env.PORT || 8080;
-app.listen(process.env.PORT, () => {
+app.listen(port, () => {
   console.log(`Listening to port ${port}`);
 });
