@@ -7,9 +7,9 @@
 // });
 
 const p = getuser(3)
-  .then(obj => getRepository(obj.gitHubUsername))
-  .then(repos => getCommits(repos))
-  .then(commit => console.log(commit));
+  .then((obj) => getRepository(obj.gitHubUsername))
+  .then((repos) => getCommits(repos))
+  .then((commit) => console.log(commit));
 
 function getuser(id) {
   console.log(`id : ${id}`);
