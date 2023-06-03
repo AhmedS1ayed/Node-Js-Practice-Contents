@@ -19,36 +19,38 @@
 
 //using callbacks
 
-console.log("before");
-
 getuser(3, (obj) => {
-  console.log(`id = ${obj.id} , gitHubUsername = ${obj.gitHubUsername}`);
-  getRepository(obj.gitHubUsername, getCommits);
+  getRepository(obj.gitHubUsername, (repos) => {
+    getCommits(repos[1], (commits) => {
+      console.log(commits);
+    });
+  });
 });
 
-console.log("after");
-
 function getuser(id, cb) {
+  console.log(`id : ${id}`);
+
+  // waiting .....
   setTimeout(() => {
     cb({ id: id, gitHubUsername: "Ahmed" });
   }, 2000);
 }
 
 function getRepository(username, cb) {
+  console.log(`username : ${username}`);
+
+  // waiting .....
   setTimeout(() => {
-    cb(["repo1", "repo2", "repo3"],displayCommits);
+    cb(["repo1", "repo2", "repo3"]);
   }, 2000);
 }
 
-function getCommits(repos,cb){
-    console.log(`repos : ${repos}`)
-    setTimeout(() => {
-      const commit = '#44fa';
-      cb(commit);
-    }, 2000);
-  }
-
-
-function displayCommits(commit='#44fa'){
-        console.log(commit);
+function getCommits(repos, cb) {
+  console.log(`repos : ${repos}`);
+  
+  // waiting .....
+  setTimeout(() => {
+    cb("#44fa");
+  }, 2000);
 }
+
