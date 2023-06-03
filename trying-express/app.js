@@ -27,6 +27,6 @@ if (app.get("env") == "development") {
 dbDebugger("connected to database ...");
 
 const port = process.env.PORT || 8080;
-app.listen(process.env.PORT, () => {
+app.listen(port, () => {
   console.log(`Listening to port ${port}`);
 });
