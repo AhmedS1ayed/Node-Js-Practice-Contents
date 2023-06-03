@@ -1,7 +1,12 @@
 const config = require("config");
+const startupDebugger = require("debug")('app::startup');
+const dbDebugger = require("debug")('app::db');
 const express = require("express");
+// logging https
 const morgan = require("morgan");
+// secure header
 const helmet = require("helmet");
+// validation
 const Joi = require("joi");
 const app = express();
 
@@ -23,8 +28,10 @@ console.log(config.get('mail.password'));
 if(app.get('env') == 'development')
 {
   app.use(morgan('tiny'));
-  console.log('morgan enabled');
+  startupDebugger('morgan enabled ...');
 }
+
+dbDebugger('connected to database ...');
 
 
 app.get("/", (req, res) => {
