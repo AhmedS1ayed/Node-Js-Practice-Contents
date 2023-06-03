@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const helmet = require("helmet");
 const Joi = require("joi");
 const app = express();
 
@@ -11,7 +12,14 @@ const courses = [
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(morgan('tiny'));
+app.use(helmet());
+
+if(app.get('env') == 'development')
+{
+  app.use(morgan('tiny'));
+  console.log('morgan enabled');
+}
+
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello world</h1>");
