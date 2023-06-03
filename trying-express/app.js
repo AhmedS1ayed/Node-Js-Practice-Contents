@@ -7,7 +7,6 @@ const express = require("express");
 const morgan = require("morgan");
 // secure header
 const helmet = require("helmet");
-// validation
 const app = express();
 
 app.use(express.json());
