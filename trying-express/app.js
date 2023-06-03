@@ -1,3 +1,4 @@
+const config = require("config");
 const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -13,6 +14,11 @@ const courses = [
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(helmet());
+
+//configuration
+console.log(config.get('name'));
+console.log(config.get('mail'));
+console.log(config.get('mail.password'));
 
 if(app.get('env') == 'development')
 {
