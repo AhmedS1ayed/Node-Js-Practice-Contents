@@ -1,8 +1,14 @@
+const dbDebugger = require("debug")("app::db");
 const Course = require("../model/Course");
 async function createCourse(newCourse) {
   const course = new Course(newCourse);
-  const result = await course.save();
-  return result;
+  try {
+    const result = await course.save();
+    return result;
+  } catch (ex) {
+    dbDebugger(ex.message);
+    return;
+  }
 }
 
 async function getCourses(req, res) {

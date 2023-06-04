@@ -8,7 +8,7 @@ const app = express();
 const CourseRoutes = require("./routes/CourseRoutes");
 
 app.use(express.json());
-app.use('/course',CourseRoutes);
+app.use("/course", CourseRoutes);
 const port = process.env.PORT || 8080;
 
 connectDB().then(() => {
