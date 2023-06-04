@@ -64,6 +64,11 @@ async function updateCourse(id) {
   // console.log(result);
 }
 
+async function deleteCourse(id){
+const course = await Course.deleteOne({_id:id});
+console.log(Course.find());
+}
+
 app.use(express.json());
 
 const port = process.env.PORT || 8080;
@@ -73,6 +78,5 @@ app.listen(port, () => {
 server.connectDB().then(() => {
   getCourses();
   updateCourse("5a6900fff467be65019a9001");
+  deleteCourse("5a6900fff467be65019a9001");
 });
-
-// createCourse();
