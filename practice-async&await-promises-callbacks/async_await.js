@@ -22,6 +22,8 @@ function getRepository(username) {
     setTimeout(() => {
         // some processes .....
       resolve(["repo1", "repo2", "repo3"]);
+
+    //   reject(new Error('Get Repository Error ...'))
     }, 2000);
   });
 }
