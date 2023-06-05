@@ -21,6 +21,7 @@ async function updateCourse(newCourse) {
   const course = await Course.findById(newCourse._id);
   if (!course) return;
   const result = await course.set(newCourse);
+  await course.save();
   return result;
 }
 async function deleteCourse(newCourse) {

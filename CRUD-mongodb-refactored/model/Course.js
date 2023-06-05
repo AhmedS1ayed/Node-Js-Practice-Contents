@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const courseSchema = mongoose.Schema({
-  _id: { type: String, default: () => Math.random().toString(36).slice(2) },
   name: String,
   author: { type: String, required: true },
   category: {
