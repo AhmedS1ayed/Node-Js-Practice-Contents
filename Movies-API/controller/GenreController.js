@@ -1,12 +1,12 @@
 const Genre = require("../model/Genre").Genre;
 
 async function getGenre(req, res) {
-  const genre = await Genre.find(req.query);
+  const genre = await Genre.find(req.body);
   res.send(genre);
 }
 
 async function postGenre(req, res) {
-  const genre = new Genre(req.query);
+  const genre = new Genre(req.body);
 
   try {
     const result = await genre.save();

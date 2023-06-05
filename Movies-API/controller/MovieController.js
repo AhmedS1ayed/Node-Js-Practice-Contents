@@ -2,12 +2,12 @@ const Movie = require("../model/Movie").Movie;
 const dbDebugger = require("debug")("app::db");
 
 async function getMovies(req, res) {
-  const movie = await Movie.find(req.query);
+  const movie = await Movie.find(req.body);
   res.send(movie);
 }
 
 async function postMovies(req, res) {
-  const movie = new Movie(req.query);
+  const movie = new Movie(req.body);
 
   try {
     const result = await movie.save();

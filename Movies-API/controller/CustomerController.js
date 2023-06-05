@@ -1,12 +1,12 @@
 const Customer = require("../model/Customer").Customer;
 
 async function getCustomer(req, res) {
-  const customer = await Customer.find(req.query);
+  const customer = await Customer.find(req.body);
   res.send(customer);
 }
 
 async function postCustomer(req, res) {
-  const customer = new Customer(req.query);
+  const customer = new Customer(req.body);
 
   try {
     const result = await customer.save();
