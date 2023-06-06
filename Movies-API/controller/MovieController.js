@@ -18,5 +18,18 @@ async function postMovies(req, res) {
   }
 }
 
+async function updateMovie(req, res) {
+  try {
+    const movie = await Movie.findById(req.body._id);
+    const result = await movie.set(req.body);
+    await movie.save();
+    res.send(result);
+  } catch (ex) {
+    dbDebugger(ex.message);
+    res.status(400).send("Error 400 Bad Request.");
+  }
+}
+
 module.exports.getMovies = getMovies;
 module.exports.postMovies = postMovies;
+module.exports.updateMovie = updateMovie;

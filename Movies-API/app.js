@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const connectDB = require("./dbconnection");
+const db = require("./dbconnection");
 const dbDebugger = require("debug")("app::db");
 const appDebugger = require("debug")("app::startup")
 const helmet = require("helmet");
@@ -28,7 +28,7 @@ app.use("/Rental",RentalRoutes);
 
 
 const port = process.env.PORT || 8080;
-connectDB()
+db.connectDB()
   .then(() => {
     app.listen(port, () => {
       appDebugger(`Listening to port ${port} ...`);

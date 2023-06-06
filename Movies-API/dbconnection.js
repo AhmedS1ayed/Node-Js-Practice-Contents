@@ -8,7 +8,7 @@ async function connectDB() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then(() => dbDebugger(`Connected to MongoDB ...`))
+    .then(() => {dbDebugger(`Connected to MongoDB ...`);})
     .catch((err) => dbDebugger(`Error Connecting to MongoDB ...`, err));
 }
-module.exports = connectDB;
+module.exports.connectDB = connectDB;
