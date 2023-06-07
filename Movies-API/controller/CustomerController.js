@@ -9,13 +9,13 @@ async function getCustomer(req, res) {
   res.send(customer);
 }
 
-async function postCustomer(req, res) {
-  const result = validateCustomer(req.body);
-  if (result.error)
+async function postCustomer(req, res,next) {
+  const validate = validateCustomer(req.body);
+  if (validate.error)
   {
     appDebugger("Error 400 Bad Request.");
     res.status(400).send("Error Customer Validation.");
-    return;
+    return next();
   }
 
   const customer = new Customer(req.body);
@@ -25,6 +25,7 @@ async function postCustomer(req, res) {
   } catch (ex) {
     dbDebugger(ex.message);
     res.status(400).send("Error 400 Bad Request.");
+    return next();
   }
 }
 

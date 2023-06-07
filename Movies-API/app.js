@@ -12,7 +12,7 @@ const CustomerRoutes = require('./routes/CustomerRoutes');
 const GenreRoutes = require('./routes/GenreRoutes');
 const RentalRoutes = require('./routes/RentalRoutes');
 const UserRoutes = require('./routes/UserRoutes');
-const LoginRoutes = require('./routes/LoginRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,7 +27,7 @@ app.use("/Customer", CustomerRoutes);
 app.use("/Genre", GenreRoutes);
 app.use("/Rental",RentalRoutes);
 app.use("/User",UserRoutes);
-app.use("/Login",LoginRoutes);
+app.use("/auth",authRoutes);
 
 
 
