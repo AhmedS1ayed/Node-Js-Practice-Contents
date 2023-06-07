@@ -2,20 +2,20 @@ const Joi = require("joi");
 const courses = require("../model/coursesModel");
 
 const validateCourse = (course) => {
-    const schema = {
-      subject: Joi.string().min(3).required(),
-    };
-    return Joi.validate(course, schema);
+  const schema = {
+    subject: Joi.string().min(3).required(),
   };
-  
-  const findCourseById = (id) => {
-    const course = courses.find((cou) => {
-      if (cou.id === parseInt(id)) return cou;
-    });
-    return course;
-  };
+  return Joi.validate(course, schema);
+};
 
-const insertCourse = (req,res) =>{
+const findCourseById = (id) => {
+  const course = courses.find((cou) => {
+    if (cou.id === parseInt(id)) return cou;
+  });
+  return course;
+};
+
+const insertCourse = (req, res) => {
   const course = req.body;
   const result = validateCourse(course);
   if (result.error) res.status(404).send("error validation");
@@ -23,9 +23,9 @@ const insertCourse = (req,res) =>{
   course.id = courses.length + 1;
   courses.push(course);
   res.send(courses);
-}
+};
 
-const updateCourse = (req,res)=>{
+const updateCourse = (req, res) => {
   const course = findCourseById(req.params.id);
   if (!course) res.status(404).send("error couldn't find course");
 
@@ -35,9 +35,9 @@ const updateCourse = (req,res)=>{
 
   course.subject = req.body.subject;
   res.send(courses);
-}
+};
 
-const deleteCourse = (req,res)=>{
+const deleteCourse = (req, res) => {
   const course = findCourseById(req.params.id);
   if (!course) res.status(404).send("error couldn't find course");
 
@@ -45,7 +45,7 @@ const deleteCourse = (req,res)=>{
   courses.splice(idx);
 
   res.send(courses);
-}
+};
 module.exports.validateCourse = validateCourse;
 module.exports.findCourseById = findCourseById;
 module.exports.insertCourse = insertCourse;

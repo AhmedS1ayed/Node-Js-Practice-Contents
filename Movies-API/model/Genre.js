@@ -1,8 +1,16 @@
 const mongoose = require("mongoose");
-const GenreSchema = new mongoose.Schema({
-  name: String
-});
-// const Genre = mongoose.model("Genre", GenreSchema);
+const Joi = require("joi");
 
-// module.exports.Genre = Genre;
+const schema = Joi.object({
+  name: Joi.string().min(3).required(),
+});
+const GenreSchema = new mongoose.Schema({
+  name: String,
+});
+const validateGenre = (genre) => {
+  return schema.validate(genre);
+};
+
 module.exports.GenreSchema = GenreSchema;
+module.exports.GenreSchemaValidation = schema;
+module.exports.validateGenre = validateGenre;

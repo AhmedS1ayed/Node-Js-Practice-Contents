@@ -1,5 +1,7 @@
 const Movie = require("../model/Movie").Movie;
+const validateMovie = require("../model/Movie").validateMovie;
 const dbDebugger = require("debug")("app::db");
+const appDebugger = require("debug")("app::startup");
 
 async function getMovies(req, res) {
   const movie = await Movie.find(req.body);
@@ -7,8 +9,15 @@ async function getMovies(req, res) {
 }
 
 async function postMovies(req, res) {
-  const movie = new Movie(req.body);
+  const result = validateMovie(req.body);
+  if (result.error)
+  {
+    appDebugger("Error 400 Bad Request.");
+    res.status(400).send("Error Customer Validation.");
+    return;
+  }
 
+  const movie = new Movie(req.body);
   try {
     const result = await movie.save();
     res.send(result);

@@ -1,4 +1,8 @@
 const Customer = require("../model/Customer").Customer;
+const validateCustomer = require("../model/Customer").validateCustomer;
+const dbDebugger = require("debug")("app::db");
+const appDebugger = require("debug")("app::startup");
+
 
 async function getCustomer(req, res) {
   const customer = await Customer.find(req.body);
@@ -6,8 +10,15 @@ async function getCustomer(req, res) {
 }
 
 async function postCustomer(req, res) {
-  const customer = new Customer(req.body);
+  const result = validateCustomer(req.body);
+  if (result.error)
+  {
+    appDebugger("Error 400 Bad Request.");
+    res.status(400).send("Error Customer Validation.");
+    return;
+  }
 
+  const customer = new Customer(req.body);
   try {
     const result = await customer.save();
     res.send(result);

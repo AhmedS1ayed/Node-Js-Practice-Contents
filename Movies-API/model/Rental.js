@@ -1,3 +1,4 @@
+const Joi = require("joi");
 const mongoose = require("mongoose");
 
 const RentalSchema = new mongoose.Schema({
@@ -9,4 +10,12 @@ const RentalSchema = new mongoose.Schema({
 });
 const Rental = mongoose.model("rentals", RentalSchema);
 
+const validateRental = (rental) => {
+  if(!mongoose.Types.ObjectId.isValid(rental.customer) || !mongoose.Types.ObjectId.isValid(rental.movie))
+    return {error : true};
+  else
+    return {error:false};
+};
+
 module.exports.Rental = Rental;
+module.exports.validateRental = validateRental;
