@@ -4,7 +4,7 @@ const dbDebugger = require("debug")("app::db");
 const appDebugger = require("debug")("app::startup");
 
 
-async function getMovies(req, res) {
+async function getMovies(req, res,next) {
   const movie = await Movie.find(req.body);
   res.send(movie);
 }
@@ -14,7 +14,7 @@ async function postMovies(req, res,next) {
   if (validate.error)
   {
     appDebugger(validate.error);
-    next();
+    next(validate.error);
   }
 
   const movie = new Movie(req.body);
@@ -27,16 +27,11 @@ async function postMovies(req, res,next) {
   }
 }
 
-async function updateMovie(req, res) {
-  try {
+async function updateMovie(req, res,next) {
     const movie = await Movie.findById(req.body._id);
     const result = await movie.set(req.body);
     await movie.save();
     res.send(result);
-  } catch (ex) {
-    dbDebugger(ex.message);
-    next();
-  }
 }
 
 module.exports.getMovies = getMovies;

@@ -20,17 +20,11 @@ async function postUser(req, res, next) {
   const user = new User(req.body);
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
-
-  try {
-    const result = await user.save();
-    const token = user.generateAuthToken();
-    res
-      .header("x-auth-token", token)
-      .send(_.pick(result, ["_id", "email", "name"]));
-  } catch (ex) {
-    dbDebugger(ex.message);
-    next(ex.message);
-  }
+  const result = await user.save();
+  const token = user.generateAuthToken();
+  res
+    .header("x-auth-token", token)
+    .send(_.pick(result, ["_id", "email", "name"]));
 }
 
 module.exports.getUser = getUser;

@@ -6,7 +6,7 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const generateAuth = require("../model/auth").generateAuth;
 
-async function postLogin(req, res) {
+async function postLogin(req, res,next) {
   const validate = validateLogin(req.body);
   if (validate.error) {
     appDebugger(validate.error);
@@ -17,7 +17,7 @@ async function postLogin(req, res) {
   const match = await bcrypt.compare(req.body.password, user.password);
 
   if (!match) return res.send("invalid email or password");
-
+  
   token = user.generateAuthToken();
   return res.send(token);
 }
