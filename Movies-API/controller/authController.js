@@ -6,21 +6,18 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const generateAuth = require("../model/auth").generateAuth;
 
-async function postLogin(req, res, next) {
+async function postLogin(req, res) {
   const validate = validateLogin(req.body);
   if (validate.error) {
-    appDebugger("Error 400 Bad Request.");
-    res.status(400).send("Error Bad Request.");
-    return next();
+    appDebugger(validate.error);
+    next(validate.error);
   }
 
   const user = await User.findOne({ email: req.body.email });
   const match = await bcrypt.compare(req.body.password, user.password);
 
-  if (!match) {
-    res.send("invalid email or password");
-    return next();
-  }
+  if (!match) return res.send("invalid email or password");
+
   token = user.generateAuthToken();
   return res.send(token);
 }

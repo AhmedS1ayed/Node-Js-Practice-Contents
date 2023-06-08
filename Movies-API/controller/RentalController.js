@@ -13,9 +13,8 @@ async function getRental(req, res) {
 async function postRental(req, res,next) {
   const validate = validateRental(req.body);
   if (validate.error) {
-    appDebugger("Error 400 Bad Request.");
-    res.status(400).send("Error Rental Validation.");
-    return next();
+    appDebugger(validate.error);
+    next();
   }
 
   const rental = new Rental(req.body);
@@ -24,8 +23,7 @@ async function postRental(req, res,next) {
     res.send(result);
   } catch (ex) {
     dbDebugger(ex.message);
-    res.status(400).send("Error 400 Bad Request.");
-    return next();
+    next();
   }
 }
 

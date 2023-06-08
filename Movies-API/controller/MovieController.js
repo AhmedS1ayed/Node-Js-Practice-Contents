@@ -13,9 +13,8 @@ async function postMovies(req, res,next) {
   const validate = validateMovie(req.body);
   if (validate.error)
   {
-    appDebugger("Error 400 Bad Request.");
-    res.status(400).send(validate.error);
-    return next();
+    appDebugger(validate.error);
+    next();
   }
 
   const movie = new Movie(req.body);
@@ -24,8 +23,7 @@ async function postMovies(req, res,next) {
     res.send(result);
   } catch (ex) {
     dbDebugger(ex.message);
-    res.status(400).send("Error 400 Bad Request.");
-    return next();
+    next();
   }
 }
 
@@ -37,7 +35,7 @@ async function updateMovie(req, res) {
     res.send(result);
   } catch (ex) {
     dbDebugger(ex.message);
-    res.status(400).send("Error 400 Bad Request.");
+    next();
   }
 }
 

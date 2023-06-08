@@ -3,18 +3,15 @@ const validateCustomer = require("../model/Customer").validateCustomer;
 const dbDebugger = require("debug")("app::db");
 const appDebugger = require("debug")("app::startup");
 
-
 async function getCustomer(req, res) {
   const customer = await Customer.find(req.body);
   res.send(customer);
 }
 
-async function postCustomer(req, res,next) {
+async function postCustomer(req, res, next) {
   const validate = validateCustomer(req.body);
-  if (validate.error)
-  {
-    appDebugger("Error 400 Bad Request.");
-    res.status(400).send("Error Customer Validation.");
+  if (validate.error) {
+    appDebugger(validate.error);
     return next();
   }
 
@@ -24,7 +21,6 @@ async function postCustomer(req, res,next) {
     res.send(result);
   } catch (ex) {
     dbDebugger(ex.message);
-    res.status(400).send("Error 400 Bad Request.");
     return next();
   }
 }
