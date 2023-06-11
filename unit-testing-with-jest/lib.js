@@ -3,9 +3,8 @@ const mail = require('./mail');
 
 // Testing numbers 
 module.exports.absolute = function(number) {
-  if (number > 0) return number; 
-  if (number < 0) return -number; 
-  return 0; 
+  if (number >= 0) return number; 
+  return -number;
 }
 
 // Testing strings 
@@ -25,7 +24,7 @@ module.exports.getProduct = function(productId) {
 
 // Testing exceptions 
 module.exports.registerUser = function(username) { 
-  if (!username) throw new Error('Username is required.');
+  if (typeof username !== 'string' || !username ) throw new Error('Username is required.');
 
   return { id: new Date().getTime(), username: username }
 }
